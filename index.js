@@ -317,8 +317,10 @@ export default class ModalBox extends React.PureComponent {
           }, () => {
             /* Set the state to the starting position of the modal, preventing from animating where the swipe stopped */
             this.state.position.setValue(this.props.entry === 'top' ? -this.state.containerHeight : this.state.containerHeight);
+            setTimeout(() => {
+              if (this.props.onClosed) this.props.onClosed();
+            }, 50); // small timeout for things to settle
           });
-          if (this.props.onClosed) this.props.onClosed();
         });
       }
     );
